@@ -142,36 +142,36 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openShoesActivity(Activity activity) {
-        Intent myIntent = new Intent(this, ShoesCategory_Activity.class);
+        Intent myIntent = new Intent(this, Categories.ShoesCategory_Activity.class);
         startActivity(myIntent);
     }
 
 
     private void openSportsActivity(Activity activity){
-        Intent myIntent = new Intent(this, SportCategory_Activity.class);
+        Intent myIntent = new Intent(this, Categories.SportCategory_Activity.class);
         startActivity(myIntent);
     }
 
 
     private void openJacketsActivity(Activity activity) {
-        Intent myIntent = new Intent(this, JacketsCategory_Activity.class);
+        Intent myIntent = new Intent(this, Categories.JacketsCategory_Activity.class);
         startActivity(myIntent);
 
     }
     private void openBottomsActivity(Activity activity) {
-        Intent myIntent = new Intent(this, BottomsCategory_Activity.class);
+        Intent myIntent = new Intent(this, Categories.BottomsCategory_Activity.class);
         startActivity(myIntent);
     }
 
 
     private void openAccessoriesActivity(Activity activity) {
-        Intent myIntent = new Intent(this, AccessoriesCategory_Activity.class);
+        Intent myIntent = new Intent(this, Categories.AccessoriesCategory_Activity.class);
         startActivity(myIntent);
 
     }
 
     private void openTopsActivity(Activity activity) {
-        Intent myIntent = new Intent(this, TopsCategory_Activity.class);
+        Intent myIntent = new Intent(this, Categories.TopsCategory_Activity.class);
         startActivity(myIntent);
 
     }
