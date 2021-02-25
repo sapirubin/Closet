@@ -38,7 +38,8 @@ public class TopsCategory_Activity extends AppCompatActivity {
     private Activity TopsWork_Activity ;
     private Activity TopsCasual_Activity;
     private Activity TopsBeach_Activity;
-    private Activity TopsDresses_Activity;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
