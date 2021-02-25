@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">My closet</string>
+
+    <string name="sign_in_cancelled">Sign In Cancelled</string>
+    <string name="no_internet_connection">No internet connection</string>
+    <string name="unknown_error">unknown error</string>
+</resources>
