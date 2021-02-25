@@ -3,11 +3,13 @@ package Categories;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.mycloset.OotdActivity;
 import com.example.mycloset.R;
 
 public class JacketsCategory_Activity extends AppCompatActivity {
@@ -15,6 +17,7 @@ public class JacketsCategory_Activity extends AppCompatActivity {
     private ImageView menu_IMG_addPic;
     private ImageView menu_IMG_homepage;
     private Activity MainActivity;
+    private Activity OotdActivity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +30,22 @@ public class JacketsCategory_Activity extends AppCompatActivity {
 
             }
         });
+        menu_IMG_ootd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openOotdActivity(OotdActivity);
+            }
+        });
+
+
+    }
+    private void openOotdActivity(Activity activity) {
+        Intent myIntent = new Intent(this, com.example.mycloset.OotdActivity.class);
+        startActivity(myIntent);
+
+
+
+
 
 
     }
@@ -44,5 +63,28 @@ public class JacketsCategory_Activity extends AppCompatActivity {
 
 
     }
+    @Override
+    protected void onResume() {
+        Log.d("pttt", "onResume");
+        super.onResume();
+    }
 
+    @Override
+    protected void onPause() {
+        Log.d("pttt", "onPause");
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        Log.d("pttt", "onStop");
+        super.onStop();
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        Log.d("pttt", "onDestroy");
+        super.onDestroy();
+    }
 }
