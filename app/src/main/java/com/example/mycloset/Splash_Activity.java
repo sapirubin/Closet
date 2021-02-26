@@ -14,6 +14,7 @@ import android.view.animation.BounceInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.button.MaterialButton;
 
 public class Splash_Activity extends AppCompatActivity {
@@ -21,11 +22,19 @@ public class Splash_Activity extends AppCompatActivity {
     private final int ANIMATION_DURATION = 2000;
     private ImageView splash_IMG_logo;
     private MaterialButton splash_BTN_start;
+    private ImageView splash_IMG_background;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+
+        /// background
+        splash_IMG_background= findViewById(R.id.splash_IMG_background);
+        Glide.with(this).load(getResources().getIdentifier("splash_img_background", "drawable", this.getPackageName())).into(splash_IMG_background);
+
 
         findViews();
         initViews();

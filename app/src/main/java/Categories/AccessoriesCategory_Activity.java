@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.example.mycloset.OotdActivity;
 import com.example.mycloset.R;
 
@@ -18,10 +19,16 @@ public class AccessoriesCategory_Activity extends AppCompatActivity {
     private ImageView menu_IMG_homepage;
     private Activity MainActivity;
     private Activity OotdActivity;
+  //  private ImageView main_IMG_homeback;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accessories);
+
+
+      //  main_IMG_homeback= findViewById(R.id.main_IMG_back1);
+       // Glide.with(this).load(R.drawable.main_IMG_homeback).into(main_IMG_homeback);
+
         menu_IMG_homepage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

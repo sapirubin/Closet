@@ -12,7 +12,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.github.drjacky.imagepicker.ImagePicker;
+
+import com.bumptech.glide.Glide;
+import com.github.dhaval2404.imagepicker.ImagePicker;
 
 import java.io.File;
 
@@ -33,7 +35,9 @@ public class MainActivity extends AppCompatActivity {
     private CardView main_LBL_sports;
     private ImageView menu_IMG_ootd;
     private ImageView menu_IMG_addPic;
-    private ImageView menu_IMG_homepage;
+    //private ImageView menu_IMG_homepage;
+    private ImageView main_IMG_homeback;
+
     private Activity TopsCategory_Activity;
     private Activity SportCategory_Activity;
     private Activity BottomsCategory_Activity ;
@@ -42,10 +46,17 @@ public class MainActivity extends AppCompatActivity {
     private Activity ShoesCategory_Activity;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        /// background
+        main_IMG_homeback= findViewById(R.id.main_IMG_Back);
+        //Glide.with(this).load(R.drawable.main_IMG_homeback).into(main_IMG_homeback);
+        Glide.with(this).load(getResources().getIdentifier("main_IMG_homeback", "drawable", this.getPackageName())).into(main_IMG_homeback);
+
         main_LBL_tops.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,20 +106,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        menu_IMG_homepage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-            }
-        });
+//        menu_IMG_homepage.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//
+//            }
+//        });
     }
 
     private void addPicture() {
         ImagePicker.Companion
                 .with(this)
                 .crop()
-                .cropOval()
                 .cropSquare()
                 .compress(1024)
                 .maxResultSize(1080, 1080)
@@ -187,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
         main_LBL_jackets= findViewById(R.id.main_LBL_jackets);
         menu_IMG_ootd= findViewById(R.id.menu_IMG_ootd);
         menu_IMG_addPic= findViewById(R.id.menu_IMG_addPic);
-        menu_IMG_homepage= findViewById(R.id.menu_IMG_homepage);
+       // menu_IMG_homepage= findViewById(R.id.menu_IMG_homepage);
 
     }
     @Override

@@ -6,8 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="@drawable/main_IMG_homeback"
-
 
 
 
@@ -85,7 +83,7 @@
             android:layout_width="50dp"
             android:layout_height="30dp"
             android:layout_marginTop="15dp"
-            android:src="@drawable/menu_IMG_home"
+            android:src="@drawable/menu_img_home"
             android:layout_marginLeft="30dp"
 
 
@@ -99,7 +97,7 @@
             android:layout_height="30dp"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
-            android:src="@drawable/menu_IMG_add"
+            android:src="@drawable/menu_img_add"
             android:layout_gravity="center"
 
 
@@ -113,7 +111,7 @@
             android:layout_height="30dp"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
-            android:src="@drawable/menu_IMG_hanger"
+            android:src="@drawable/menu_img_hanger"
             android:layout_gravity="right"
             android:layout_marginRight="30dp"
             >

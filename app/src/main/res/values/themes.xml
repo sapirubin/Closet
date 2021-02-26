@@ -25,4 +25,5 @@
         <item name="colorControlHighlight">@color/material_baby_pink</item>
         <item name="android:windowBackground">@color/material_green_50</item>
     </style>
+
 </resources>
