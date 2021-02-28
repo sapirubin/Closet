@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
 
+
     >
     <ImageView
         android:id="@+id/main_IMG_Back"
@@ -30,28 +31,19 @@
         android:layout_height="50dp"
         android:layout_row="0"
         android:layout_column="0"
-        android:src="@drawable/ic_logo">
-
-    </ImageView>
-    <TextView
-        android:id="@+id/main_LBL_appName"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:text="CloseIt"
-        android:textColor="@android:color/black"
-        android:layout_below="@+id/main_IMG_logo"
-        android:fontFamily="serif"
-        android:textStyle="bold"
-        android:textSize="15dp"
-
+        android:src="@drawable/closeit_logo"
+        android:layout_toLeftOf="@+id/main_LBL_title"
+        android:layout_marginLeft="10dp"
         >
 
-    </TextView>
+    </ImageView>
+
     <TextView
+        android:id="@+id/main_LBL_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_centerHorizontal="true"
+        android:paddingLeft="20dp"
         android:text="Life's too short to wear boring clothes"
         android:textColor="@color/black"
         android:fontFamily="cursive"
@@ -71,6 +63,7 @@
         android:overScrollMode="never"
         android:layout_alignParentBottom="true"
        android:layout_below="@+id/main_IMG_background"
+        android:background="@drawable/main_background"
         >
         <GridLayout
             android:layout_width="match_parent"
@@ -100,7 +93,7 @@
                     android:textColor="@color/black"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:fontFamily="serif"
+                    android:fontFamily="monospace"
                     android:textStyle="bold"
 
                     >
@@ -262,6 +255,7 @@
             android:layout_marginTop="15dp"
             android:src="@drawable/menu_img_home"
             android:layout_marginLeft="30dp"
+            android:layout_gravity="left"
 
 
             >

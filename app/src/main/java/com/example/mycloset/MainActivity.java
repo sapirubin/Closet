@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 
-import com.example.mycloset.Activities.TopsCategory_Activity;
+import com.bumptech.glide.Glide;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 
 import java.io.File;
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         findByView();
 
-//        Glide.with(this).load(getResources().getIdentifier("main_IMG_homeback", "drawable", this.getPackageName())).into(main_IMG_homeback);
+   Glide.with(this).load(getResources().getIdentifier("main_IMG_homeback", "drawable", this.getPackageName())).into(main_IMG_homeback);
 
         main_LBL_tops.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,12 +90,6 @@ public class MainActivity extends AppCompatActivity {
                 openOotdActivity(ootd_Activity);
             }
         });
-        menu_IMG_addPic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addPicture();
-            }
-        });
 
         menu_IMG_homepage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,43 +102,14 @@ public class MainActivity extends AppCompatActivity {
   }
 
 
-    private void addPicture() {
-        ImagePicker.Companion
-                .with(this)
-                .crop()
-                .cropSquare()
-                .compress(1024)
-                .maxResultSize(1080, 1080)
-                .start();
-    }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK) {
-            //Image Uri will not be null for RESULT_OK
-            Uri fileUri = data.getData();
-            menu_IMG_addPic.setImageURI(fileUri);
-
-            //You can get File object from intent
-            File file = new ImagePicker().Companion.getFile(data);
-
-            //You can also get File Path from intent
-            String filePath = new ImagePicker().Companion.getFilePath(data);
-
-        } else if (resultCode == ImagePicker.RESULT_ERROR) {
-            Toast.makeText(this, new ImagePicker().Companion.getError(data), Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "Task Cancelled", Toast.LENGTH_SHORT).show();
-        }
-    }
     private void openMainActivity(Activity activity) {
         Intent myIntent = new Intent(this, MainActivity.class);
         startActivity(myIntent);
     }
 
     private void openOotdActivity(Activity activity) {
-        Intent myIntent = new Intent(this, OotdActivity.class);
+        Intent myIntent = new Intent(this, OutfitActivity.class);
         startActivity(myIntent);
     }
 

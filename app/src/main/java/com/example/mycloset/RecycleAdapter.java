@@ -20,6 +20,20 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHold
     public List<ListPictures> listPictures;
     public Context ct;
 
+    //
+    public  OnItemClickListener mListener;
+
+    public interface OnItemClickListener{
+        void onItemClick(int position);
+    }
+    public void  setOnItemClickListener(OnItemClickListener listener){
+        mListener=listener;
+
+    }
+
+
+
+
 
     public RecycleAdapter(List<ListPictures> listPictures, Context ct) {
         this.listPictures = listPictures;
@@ -30,18 +44,16 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_pictures, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view,mListener);
     }
 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        ListPictures articleList = listPictures.get(position);
+        ListPictures listPicture = listPictures.get(position);
         Glide.with(ct)
-                .load(articleList.getImageUrl())
+                .load(listPicture.getImageUrl())
                 .into(holder.listImg);
-
-        holder.listName.setText(articleList.getArticleName());
 
     }
 
@@ -54,12 +66,25 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHold
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView listImg;
-        TextView listName;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView,OnItemClickListener listener) {
             super(itemView);
             listImg = itemView.findViewById(R.id.article_image);
-            listName = itemView.findViewById(R.id.article_name);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                if (listener!= null){
+                                                    int position = getAdapterPosition();
+                                                    if(position!=RecyclerView.NO_POSITION){
+                                                        listener.onItemClick(position);
+                                                    }
+                                                }
+                                            }
+                                        }
+            );
         }
-    }
+
+}
+
+
 }

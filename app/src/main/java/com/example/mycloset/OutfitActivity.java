@@ -5,12 +5,14 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class OotdActivity extends AppCompatActivity {
+public class OutfitActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ootd);
+
+
 
 
     }

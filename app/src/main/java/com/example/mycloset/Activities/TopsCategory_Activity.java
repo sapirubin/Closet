@@ -11,8 +11,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.mycloset.MainActivity;
-import com.example.mycloset.OotdActivity;
+import com.example.mycloset.OutfitActivity;
 import com.example.mycloset.R;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 
@@ -57,7 +56,7 @@ public class TopsCategory_Activity extends AppCompatActivity {
 
     }
     private void openOotdActivity(Activity activity) {
-        Intent myIntent = new Intent(this, com.example.mycloset.OotdActivity.class);
+        Intent myIntent = new Intent(this, OutfitActivity.class);
         startActivity(myIntent);
     }
 

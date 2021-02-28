@@ -20,32 +20,24 @@
 
         <ImageView
             android:id="@+id/main_IMG_logo"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_row="0"
             android:layout_column="0"
-            android:src="@drawable/ic_logo">
+            android:src="@drawable/closeit_logo"
+            android:layout_toLeftOf="@+id/main_LBL_title"
+            android:layout_marginLeft="10dp"
+
+          >
 
         </ImageView>
-        <TextView
-            android:id="@+id/main_LBL_appname"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:text="CloseIt"
-            android:textColor="@android:color/black"
-            android:layout_below="@+id/main_IMG_logo"
-            android:fontFamily="serif"
-            android:textStyle="bold"
-            android:textSize="15dp"
 
-            >
-
-        </TextView>
         <TextView
+            android:id="@+id/main_LBL_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_centerHorizontal="true"
+            android:paddingLeft="20dp"
             android:text="Life's too short to wear boring clothes"
             android:textColor="@color/black"
             android:fontFamily="cursive"
@@ -55,9 +47,11 @@
 
         </TextView>
 
-
-
     </RelativeLayout>
+   <ScrollView
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:layout_below="@+id/main_IMG_background">
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rec"
         android:layout_width="match_parent"
@@ -67,6 +61,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_below="@+id/main_IMG_background"/>
+   </ScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
@@ -83,9 +78,8 @@
             android:layout_height="30dp"
             android:layout_marginTop="15dp"
             android:src="@drawable/menu_img_home"
+            android:layout_gravity="left"
             android:layout_marginLeft="30dp"
-
-
 
             >
 
@@ -99,8 +93,6 @@
             android:layout_marginBottom="15dp"
             android:src="@drawable/menu_img_add"
             android:layout_gravity="center"
-
-
 
             >
 

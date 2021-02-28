@@ -59,7 +59,7 @@ public class Login_Activity extends AppCompatActivity {
 //                                new AuthUI.IdpConfig.FacebookBuilder().build(),
                                //new AuthUI.IdpConfig.AnonymousBuilder().build()
                         ))
-                        .setLogo(R.drawable.ic_logo)
+                        .setLogo(R.drawable.menu_img_hanger)
                         .setTosAndPrivacyPolicyUrls(
                                 "https://example.com/terms.html",
                                 "https://example.com/privacy.html")
