@@ -23,9 +23,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.loader.content.CursorLoader;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.mycloset.ListPictures;
 import com.example.mycloset.OotdActivity;
 import com.example.mycloset.PictureItem;
 import com.example.mycloset.R;
@@ -52,6 +55,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -62,14 +66,12 @@ public class AccessoriesCategory_Activity extends AppCompatActivity {
     private ImageView menu_IMG_homepage;
     private Activity MainActivity;
     private Activity OotdActivity;
-    private ImageView testimg;
-    private RecyclerView.RecyclerListener recyclerListener;
+
   // private ImageView main_IMG_homeback;
     private Uri uriImage;
     private StorageReference storageRef;
     private FirebaseStorage storage ;
     private FirebaseUser user;
-    private Button btn;
     private String myUri;
     /// image adapter
     // Create a reference with an initial file path and name
@@ -79,8 +81,9 @@ public class AccessoriesCategory_Activity extends AppCompatActivity {
     private StorageReference gsReference;
     private FirebaseDatabase database;
     private UploadTask uploadTask;
-    private List<PictureItem> pictures;
-
+    private RecyclerView rv;
+    private List<ListPictures>listPictures;
+    private DatabaseReference databaseReference;
 
     ///lIST
 
@@ -106,7 +109,15 @@ public class AccessoriesCategory_Activity extends AppCompatActivity {
         //  main_IMG_homeback= findViewById(R.id.main_IMG_back1);
        // Glide.with(this).load(R.drawable.main_IMG_homeback).into(main_IMG_homeback);
 
-
+        setContentView(R.layout.activity_accessories);
+        rv=findViewById(R.id.rec);
+        rv.setHasFixedSize(true);
+        rv.setLayoutManager(new LinearLayoutManager(this));
+        DividerItemDecoration decoration=new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        rv.addItemDecoration(decoration);
+        listPictures=new ArrayList<>();
+        databaseReference= FirebaseDatabase.getInstance().getReference("myImages");
+        getImageData();
 
 
 
@@ -134,89 +145,65 @@ public class AccessoriesCategory_Activity extends AppCompatActivity {
        // download();
 
     }
-
-
-    private void download() {
-
-
-        DatabaseReference myRef = database.getReference(user.getUid()).child("accessories");
-
-        // Read from the database
-        myRef.addValueEventListener(new ValueEventListener() {
+    private void getImageData() {
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                String value = dataSnapshot.getValue(String.class);
-                Log.d("TAG", "Value is: " + value);
-             //   Glide.with(getApplicationContext()).load(value).into(testimg);
-                Glide.with(getApplicationContext())
-                        .load(myRef)
-                        .into(testimg);
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w("TAG", "Failed to read value.", error.toException());
-            }
-        });
-
-        pathReference = storageRef.child(user.getUid()).child("accessories");//.child("b2303f3f-b46d-45f4-9625-35de5de3a146.jpg");
-       // Glide.with(this).load(pathReference).into(testimg);
-        pathReference.getBytes(1024*1024).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-            @Override
-            public void onSuccess(byte[] bytes) {
-                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
-                testimg.setImageBitmap(bitmap);
-            }
-        });
-
-
-
-    }
-
-
-@Override
-protected void onSaveInstanceState(Bundle outState) {
-    super.onSaveInstanceState(outState);
-    DatabaseReference myRef = database.getReference(user.getUid()).child("accessories");
-
-    // If there's a download in progress, save the reference so you can query it later
-    if (myRef != null) {
-        outState.putString("reference", myRef.toString());
-    }
-}
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-
-        // If there was a download in progress, get its reference and create a new StorageReference
-        final String stringRef = savedInstanceState.getString("reference");
-        if (stringRef == null) {
-            return;
-        }
-        pathReference = FirebaseStorage.getInstance().getReferenceFromUrl(stringRef);
-
-        // Find all DownloadTasks under this StorageReference (in this example, there should be one)
-        List<FileDownloadTask> tasks = pathReference.getActiveDownloadTasks();
-        if (tasks.size() > 0) {
-            // Get the task monitoring the download
-            FileDownloadTask task = tasks.get(0);
-
-            // Add new listeners to the task using an Activity scope
-            task.addOnSuccessListener(this, new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(FileDownloadTask.TaskSnapshot state) {
-                    // Success!
-                    // ...
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot di:dataSnapshot.getChildren()){
+                    ListPictures articleList=di.getValue(ListPictures.class);
+                    listPictures.add(articleList);
                 }
-            });
-        }
+                ListPictures adapter=new ListPictures(listPictures,getApplicationContext());
+                rv.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
+//    private void download() {
+//
+//
+//        DatabaseReference myRef = database.getReference(user.getUid()).child("accessories");
+//
+//        // Read from the database
+//        myRef.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                // This method is called once with the initial value and again
+//                // whenever data at this location is updated.
+//                String value = dataSnapshot.getValue(String.class);
+//                Log.d("TAG", "Value is: " + value);
+//             //   Glide.with(getApplicationContext()).load(value).into(testimg);
+//                Glide.with(getApplicationContext())
+//                        .load(myRef)
+//                        .into(testimg);
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError error) {
+//                // Failed to read value
+//                Log.w("TAG", "Failed to read value.", error.toException());
+//            }
+//        });
+//
+//        pathReference = storageRef.child(user.getUid()).child("accessories");//.child("b2303f3f-b46d-45f4-9625-35de5de3a146.jpg");
+//       // Glide.with(this).load(pathReference).into(testimg);
+//        pathReference.getBytes(1024*1024).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+//            @Override
+//            public void onSuccess(byte[] bytes) {
+//                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
+//                testimg.setImageBitmap(bitmap);
+//            }
+//        });
+//
+//
+//
+//    }
 
     private void openOotdActivity(Activity activity) {
         Intent myIntent = new Intent(this, OotdActivity.class);
