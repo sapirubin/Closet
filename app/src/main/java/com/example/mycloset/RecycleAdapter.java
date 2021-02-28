@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,24 +16,26 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-public class RecycleAdapter extends RecyclerView.Adapter<ListPictures.ViewHolder> {
-    List<ListPictures> listPictures;
-    Context ct;
+public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHolder> {
+    public List<ListPictures> listPictures;
+    public Context ct;
 
-    public RecycleAdapter(List<ListPictures> articleLists, Context ct) {
+
+    public RecycleAdapter(List<ListPictures> listPictures, Context ct) {
         this.listPictures = listPictures;
         this.ct = ct;
     }
 
     @NonNull
     @Override
-    public ListPictures.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_pictures, parent, false);
-        return new ListPictures.ViewHolder(view);
+        return new ViewHolder(view);
     }
 
+
     @Override
-    public void onBindViewHolder(@NonNull ListPictures.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ListPictures articleList = listPictures.get(position);
         Glide.with(ct)
                 .load(articleList.getImageUrl())
@@ -47,4 +51,15 @@ public class RecycleAdapter extends RecyclerView.Adapter<ListPictures.ViewHolder
         return listPictures.size();
     }
 
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView listImg;
+        TextView listName;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            listImg = itemView.findViewById(R.id.article_image);
+            listName = itemView.findViewById(R.id.article_name);
+        }
+    }
 }

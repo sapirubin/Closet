@@ -32,6 +32,7 @@ import com.example.mycloset.ListPictures;
 import com.example.mycloset.OotdActivity;
 import com.example.mycloset.PictureItem;
 import com.example.mycloset.R;
+import com.example.mycloset.RecycleAdapter;
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.gms.tasks.Continuation;
@@ -105,8 +106,6 @@ public class AccessoriesCategory_Activity extends AppCompatActivity {
 //// RealTime
          database = FirebaseDatabase.getInstance();
 
-        //  main_IMG_homeback= findViewById(R.id.main_IMG_back1);
-       // Glide.with(this).load(R.drawable.main_IMG_homeback).into(main_IMG_homeback);
 
         setContentView(R.layout.activity_accessories);
         rv=findViewById(R.id.rec);
@@ -152,7 +151,7 @@ public class AccessoriesCategory_Activity extends AppCompatActivity {
                     ListPictures listPicture=di.getValue(ListPictures.class);
                     listPictures.add(listPicture);
                 }
-                ListPictures adapter=new ListPictures(listPictures,getApplicationContext());
+                RecycleAdapter adapter=new RecycleAdapter(listPictures,getApplicationContext());
                 rv.setAdapter(adapter);
             }
 
