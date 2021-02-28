@@ -60,14 +60,13 @@ import java.util.List;
 import java.util.UUID;
 
 
+
 public class AccessoriesCategory_Activity extends AppCompatActivity {
     private ImageView menu_IMG_ootd;
     private ImageView menu_IMG_addPic;
     private ImageView menu_IMG_homepage;
     private Activity MainActivity;
     private Activity OotdActivity;
-
-  // private ImageView main_IMG_homeback;
     private Uri uriImage;
     private StorageReference storageRef;
     private FirebaseStorage storage ;
@@ -150,8 +149,8 @@ public class AccessoriesCategory_Activity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot di:dataSnapshot.getChildren()){
-                    ListPictures articleList=di.getValue(ListPictures.class);
-                    listPictures.add(articleList);
+                    ListPictures listPicture=di.getValue(ListPictures.class);
+                    listPictures.add(listPicture);
                 }
                 ListPictures adapter=new ListPictures(listPictures,getApplicationContext());
                 rv.setAdapter(adapter);
