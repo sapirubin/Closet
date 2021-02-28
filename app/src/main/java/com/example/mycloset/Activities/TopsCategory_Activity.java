@@ -1,17 +1,22 @@
-package Categories;
+package com.example.mycloset.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mycloset.MainActivity;
 import com.example.mycloset.OotdActivity;
 import com.example.mycloset.R;
+import com.github.dhaval2404.imagepicker.ImagePicker;
+
+import java.io.File;
 
 public class TopsCategory_Activity extends AppCompatActivity {
 
@@ -25,6 +30,7 @@ public class TopsCategory_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tops);
+        findByView();
 
 
         menu_IMG_homepage.setOnClickListener(new View.OnClickListener() {
@@ -41,23 +47,53 @@ public class TopsCategory_Activity extends AppCompatActivity {
                 openOotdActivity(OotdActivity);
             }
         });
+        menu_IMG_addPic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addPicture();
+            }
+        });
 
 
     }
     private void openOotdActivity(Activity activity) {
         Intent myIntent = new Intent(this, com.example.mycloset.OotdActivity.class);
         startActivity(myIntent);
-
-
-
-
-
-
     }
 
     private void openMenu(Activity activity) {
         Intent myIntent = new Intent(this, com.example.mycloset.MainActivity.class);
         startActivity(myIntent);
+    }
+    private void addPicture() {
+        ImagePicker.Companion
+                .with(this)
+                .crop()
+                .cropSquare()
+                .compress(1024)
+                .maxResultSize(1080, 1080)
+                .start();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            //Image Uri will not be null for RESULT_OK
+            Uri fileUri = data.getData();
+            menu_IMG_addPic.setImageURI(fileUri);
+
+            //You can get File object from intent
+            File file = new ImagePicker().Companion.getFile(data);
+
+            //You can also get File Path from intent
+            String filePath = new ImagePicker().Companion.getFilePath(data);
+
+        } else if (resultCode == ImagePicker.RESULT_ERROR) {
+            Toast.makeText(this, new ImagePicker().Companion.getError(data), Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Task Cancelled", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void findByView(){

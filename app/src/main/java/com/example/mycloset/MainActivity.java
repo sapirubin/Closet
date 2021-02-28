@@ -13,17 +13,10 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 
-import com.bumptech.glide.Glide;
+import com.example.mycloset.Activities.TopsCategory_Activity;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 
 import java.io.File;
-
-import Categories.AccessoriesCategory_Activity;
-import Categories.JacketsCategory_Activity;
-import Categories.BottomsCategory_Activity;
-import Categories.ShoesCategory_Activity;
-import Categories.SportCategory_Activity;
-import Categories.TopsCategory_Activity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -33,34 +26,32 @@ public class MainActivity extends AppCompatActivity {
     private CardView main_LBL_shoes;
     private CardView main_LBL_accessories;
     private CardView main_LBL_sports;
+
     private ImageView menu_IMG_ootd;
     private ImageView menu_IMG_addPic;
-    //private ImageView menu_IMG_homepage;
+    private ImageView menu_IMG_homepage;
     private ImageView main_IMG_homeback;
 
-    private Activity TopsCategory_Activity;
+    private Activity topsCategory_Activity;
     private Activity SportCategory_Activity;
     private Activity BottomsCategory_Activity ;
     private Activity AccessoriesCategory_Activity;
     private Activity JacketsCategory_Activity;
     private Activity ShoesCategory_Activity;
-
-
+    private Activity ootd_Activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        findByView();
 
-        /// background
-        main_IMG_homeback= findViewById(R.id.main_IMG_Back);
-        //Glide.with(this).load(R.drawable.main_IMG_homeback).into(main_IMG_homeback);
-        Glide.with(this).load(getResources().getIdentifier("main_IMG_homeback", "drawable", this.getPackageName())).into(main_IMG_homeback);
+//        Glide.with(this).load(getResources().getIdentifier("main_IMG_homeback", "drawable", this.getPackageName())).into(main_IMG_homeback);
 
         main_LBL_tops.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openTopsActivity(TopsCategory_Activity);
+                openTopsActivity(topsCategory_Activity);
             }
         });
         main_LBL_bottoms.setOnClickListener(new View.OnClickListener() {
@@ -96,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
         menu_IMG_ootd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openOotdActivity();
+                openOotdActivity(ootd_Activity);
             }
         });
         menu_IMG_addPic.setOnClickListener(new View.OnClickListener() {
@@ -106,14 +97,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//        menu_IMG_homepage.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//
-//            }
-//        });
-    }
+        menu_IMG_homepage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openMainActivity(MainActivity.this);
+
+
+            }
+        });
+  }
+
 
     private void addPicture() {
         ImagePicker.Companion
@@ -124,7 +117,6 @@ public class MainActivity extends AppCompatActivity {
                 .maxResultSize(1080, 1080)
                 .start();
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -146,42 +138,47 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Task Cancelled", Toast.LENGTH_SHORT).show();
         }
     }
-    private void openOotdActivity() {
+    private void openMainActivity(Activity activity) {
+        Intent myIntent = new Intent(this, MainActivity.class);
+        startActivity(myIntent);
+    }
+
+    private void openOotdActivity(Activity activity) {
         Intent myIntent = new Intent(this, OotdActivity.class);
         startActivity(myIntent);
     }
 
     private void openShoesActivity(Activity activity) {
-        Intent myIntent = new Intent(this, Categories.ShoesCategory_Activity.class);
+        Intent myIntent = new Intent(this, com.example.mycloset.Activities.ShoesCategory_Activity.class);
         startActivity(myIntent);
     }
 
 
     private void openSportsActivity(Activity activity){
-        Intent myIntent = new Intent(this, Categories.SportCategory_Activity.class);
+        Intent myIntent = new Intent(this, com.example.mycloset.Activities.SportCategory_Activity.class);
         startActivity(myIntent);
     }
 
 
     private void openJacketsActivity(Activity activity) {
-        Intent myIntent = new Intent(this, Categories.JacketsCategory_Activity.class);
+        Intent myIntent = new Intent(this, com.example.mycloset.Activities.JacketsCategory_Activity.class);
         startActivity(myIntent);
 
     }
     private void openBottomsActivity(Activity activity) {
-        Intent myIntent = new Intent(this, Categories.BottomsCategory_Activity.class);
+        Intent myIntent = new Intent(this, com.example.mycloset.Activities.BottomsCategory_Activity.class);
         startActivity(myIntent);
     }
 
 
     private void openAccessoriesActivity(Activity activity) {
-        Intent myIntent = new Intent(this, Categories.AccessoriesCategory_Activity.class);
+        Intent myIntent = new Intent(this, com.example.mycloset.Activities.AccessoriesCategory_Activity.class);
         startActivity(myIntent);
 
     }
 
     private void openTopsActivity(Activity activity) {
-        Intent myIntent = new Intent(this, Categories.TopsCategory_Activity.class);
+        Intent myIntent = new Intent(this,com.example.mycloset.Activities.TopsCategory_Activity.class);
         startActivity(myIntent);
 
     }
@@ -197,7 +194,8 @@ public class MainActivity extends AppCompatActivity {
         main_LBL_jackets= findViewById(R.id.main_LBL_jackets);
         menu_IMG_ootd= findViewById(R.id.menu_IMG_ootd);
         menu_IMG_addPic= findViewById(R.id.menu_IMG_addPic);
-       // menu_IMG_homepage= findViewById(R.id.menu_IMG_homepage);
+        main_IMG_homeback= findViewById(R.id.main_IMG_Back);
+        menu_IMG_homepage= findViewById(R.id.menu_IMG_homepage);
 
     }
     @Override
