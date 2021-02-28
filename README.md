@@ -6,6 +6,7 @@ android studio
 [![Download](https://api.bintray.com/packages/dhaval2404/maven/imagepicker/images/download.svg) ]() 
 ![Language:Java](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
 [![Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)]()
+[![Welcome](https://svgur.com/i/UaL.svg)
 
 <div align="center">
   <sub>Built with ❤︎ by
@@ -15,7 +16,7 @@ android studio
   </a>
 </div>
 <br/>
-	![](https://svgshare.com/i/UaL.svg)
+	
 
 Our App is your closet. The app stores all the clothes you have in your actual closet, 
 instead of looking for a clothing item in your closet you just need to open the app in you will find what you want.
