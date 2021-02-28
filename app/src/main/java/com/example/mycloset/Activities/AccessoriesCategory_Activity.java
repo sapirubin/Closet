@@ -106,9 +106,6 @@ public class AccessoriesCategory_Activity extends AppCompatActivity {
 //// RealTime
          database = FirebaseDatabase.getInstance();
 
-
-        setContentView(R.layout.activity_accessories);
-        rv=findViewById(R.id.rec);
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(this));
         DividerItemDecoration decoration=new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
@@ -321,6 +318,7 @@ public class AccessoriesCategory_Activity extends AppCompatActivity {
         menu_IMG_ootd= findViewById(R.id.menu_IMG_ootd);
         menu_IMG_addPic= findViewById(R.id.menu_IMG_addPic);
         menu_IMG_homepage= findViewById(R.id.menu_IMG_homepage);
+        rv=findViewById(R.id.rec);
       //  testimg=findViewById(R.id.testimg);
 
 
