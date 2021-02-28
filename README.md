@@ -9,7 +9,7 @@ android studio
 
 <div align="center">
   <sub>Built with ❤︎ by
-  <a href="https://github.com/Ron-Itzhak">RON ITZHAK</a> and
+  <a href="https://github.com/Ron-Itzhak">Ron Itzhak</a> and
   <a href="https://github.com/sapirubin">
     Sapir Rubin
   </a>
