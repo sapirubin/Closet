@@ -1,4 +1,4 @@
-# Closet
+# CloseIt
 Final Project
 android studio
 # 📸Closet Final Project Android
