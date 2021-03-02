@@ -3,65 +3,99 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="5dp"
-    android:layout_width="300dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
-    <androidx.cardview.widget.CardView
 
-        android:id="@+id/post_card"
-        android:orientation="vertical"
-        android:elevation="8dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="12dp"
-        android:layout_marginTop="20dp"
-        android:layout_columnWeight="1"
-        android:layout_column="1"
-        app:cardBackgroundColor="@color/cardview_shadow_end_color"
-        android:layout_margin="5dp"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="27dp"
+    android:elevation="6dp"
+    app:cardElevation="6dp"
+    android:outlineSpotShadowColor="@color/material_pink"
+    android:outlineAmbientShadowColor="@color/material_pink"
+    app:layout_constraintCircleRadius="20dp"
+    android:layout_gravity="top"
+    android:layout_columnWeight="1"
+    android:layout_rowWeight="1"
+    android:layout_centerInParent="true"
+    android:background="@drawable/main_background"
+
+
+
     >
+    <RelativeLayout
+
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <androidx.cardview.widget.CardView
+
+            android:id="@+id/post_card"
+            android:orientation="vertical"
+            android:elevation="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="12dp"
+            android:layout_marginTop="20dp"
+            android:layout_columnWeight="1"
+            android:layout_column="1"
+            app:cardBackgroundColor="@color/cardview_shadow_end_color"
+            android:layout_margin="5dp"
+            android:layout_centerInParent="true"
+            >
+
+            >
+
+            <ImageView
+                android:id="@+id/post_picture"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:layout_margin="20dp"
+
+
+                />
+
+
+        </androidx.cardview.widget.CardView>
+
+
+
+    </RelativeLayout>
+    <ImageView
+        android:id="@+id/post_delete"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginRight="102dp"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/ic_delete"
+        android:layout_toRightOf="@+id/post_card"
+        android:layout_gravity="left"
+
 
         >
 
-        <ImageView
-            android:id="@+id/post_picture"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_gravity="center"
-
-            />
-
-
-    </androidx.cardview.widget.CardView>
-
+    </ImageView>
     <ImageView
         android:id="@+id/post_like"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_gravity="bottom"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:layout_margin="10dp"
         android:src="@drawable/ic_heart"
         android:layout_toRightOf="@id/post_card"
         android:layout_marginTop="102dp"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="right"
+
 
         >
 
     </ImageView>
-
-    <ImageView
-        android:id="@+id/post_delete"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_gravity="bottom"
-        android:layout_margin="10dp"
-        android:src="@drawable/ic_delete"
-        android:layout_toRightOf="@id/post_card"
-        android:layout_alignBottom="@id/post_card"
-        android:layout_marginTop="102dp"
-
-        >
-
-    </ImageView>
-
-
+</androidx.cardview.widget.CardView>
 </RelativeLayout>

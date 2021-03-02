@@ -6,7 +6,7 @@ import android.content.Context;
 import java.util.List;
 
 public class ListPictures  {
-    public String imageUrl;
+    private String imageUrl;
 
     public ListPictures() {
         //empty constructor

@@ -5,18 +5,14 @@ import androidx.cardview.widget.CardView;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 
 import com.bumptech.glide.Glide;
-import com.github.dhaval2404.imagepicker.ImagePicker;
-
-import java.io.File;
+import com.example.mycloset.Activities.Outfit_Activity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -109,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openOotdActivity(Activity activity) {
-        Intent myIntent = new Intent(this, OutfitActivity.class);
+        Intent myIntent = new Intent(this, Outfit_Activity.class);
         startActivity(myIntent);
     }
 

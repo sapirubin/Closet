@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mycloset.ListPictures;
-import com.example.mycloset.OutfitActivity;
 import com.example.mycloset.R;
 import com.example.mycloset.RecycleAdapter;
 import com.github.dhaval2404.imagepicker.ImagePicker;
@@ -121,7 +120,7 @@ public class BottomsCategory_Activity extends AppCompatActivity {
     }
 
     private void openOotdActivity() {
-        Intent myIntent = new Intent(this, OutfitActivity.class);
+        Intent myIntent = new Intent(this, Outfit_Activity.class);
         startActivity(myIntent);
 
     }
