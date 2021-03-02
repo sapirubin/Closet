@@ -24,16 +24,14 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHold
     public  OnItemClickListener mListener;
 
     public interface OnItemClickListener{
-        void onItemClick(int position);
+        void onItemLike(int position);
+        void onItemDelete(int position);
+
     }
     public void  setOnItemClickListener(OnItemClickListener listener){
         mListener=listener;
 
     }
-
-
-
-
 
     public RecycleAdapter(List<ListPictures> listPictures, Context ct) {
         this.listPictures = listPictures;
@@ -53,7 +51,7 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHold
         ListPictures listPicture = listPictures.get(position);
         Glide.with(ct)
                 .load(listPicture.getImageUrl())
-                .into(holder.listImg);
+                .into(holder.post_Img);
 
     }
 
@@ -65,23 +63,55 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.ViewHold
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView listImg;
-
+        ImageView post_Img;
+        ImageView post_like;
+        ImageView post_delete;
         public ViewHolder(@NonNull View itemView,OnItemClickListener listener) {
             super(itemView);
-            listImg = itemView.findViewById(R.id.article_image);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                if (listener!= null){
-                                                    int position = getAdapterPosition();
-                                                    if(position!=RecyclerView.NO_POSITION){
-                                                        listener.onItemClick(position);
-                                                    }
-                                                }
-                                            }
-                                        }
-            );
+            post_Img = itemView.findViewById(R.id.post_picture);
+            post_like = itemView.findViewById(R.id.post_like);
+            post_delete = itemView.findViewById(R.id.post_delete);
+
+
+
+            post_delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener!= null){
+                        int position = getAdapterPosition();
+                        if(position!=RecyclerView.NO_POSITION){
+                            listener.onItemDelete(position);
+                        }
+                    }
+                }
+            });
+
+            post_like.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener!= null){
+                        int position = getAdapterPosition();
+                        if(position!=RecyclerView.NO_POSITION){
+                            listener.onItemLike(position);
+                        }
+                    }
+                }
+            });
+
+
+
+
+//            itemView.setOnClickListener(new View.OnClickListener() {
+//                                            @Override
+//                                            public void onClick(View v) {
+//                                                if (listener!= null){
+//                                                    int position = getAdapterPosition();
+//                                                    if(position!=RecyclerView.NO_POSITION){
+//                                                        listener.onItemLike(position);
+//                                                    }
+//                                                }
+//                                            }
+//                                        });
         }
 
 }

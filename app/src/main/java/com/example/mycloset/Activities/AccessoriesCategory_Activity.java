@@ -47,7 +47,7 @@ public class AccessoriesCategory_Activity extends AppCompatActivity {
     private ImageView menu_IMG_ootd;
     private ImageView menu_IMG_addPic;
     private ImageView menu_IMG_homepage;
-    private ImageView picture_IMG_heart;
+    private ImageView picture_IMG_heart,post_Delete;
 
     private Uri uriImage;
     private StorageReference storageRef;
@@ -83,20 +83,17 @@ public class AccessoriesCategory_Activity extends AppCompatActivity {
         listPictures=new ArrayList<>();
         databaseReference= database.getReference(user.getUid()).child("accessories");
 
+        //Testing Ron
+       // testGetImageData();
+
+
 
 
         getImageData();
 
 
 //        //mAdapter = new RecycleAdapter(listPictures,this);
-//        mAdapter.setOnItemClickListener(new RecycleAdapter.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(int position) {
-//                Log.d("pttt", "position: "+position);
-//                //saveToOutFit(listPictures.get(position));
-//
-//            }
-//        });
+
 
 
         menu_IMG_homepage.setOnClickListener(new View.OnClickListener() {
@@ -120,6 +117,29 @@ public class AccessoriesCategory_Activity extends AppCompatActivity {
 
 
     }
+
+    private void testGetImageData() {
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // ...
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // ...
+            }
+        });
+        ListPictures listPicture=new ListPictures("https://www.israelhayom.co.il/sites/default/files/u79157/15582558969343_b.jpg");
+        ListPictures listPicture2=new ListPictures("https://upl.stack.com/wp-content/uploads/2020/03/11113000/Morning-Workout.jpg");
+
+
+        listPictures.add(listPicture);
+        listPictures.add(listPicture2);
+        mAdapter = new RecycleAdapter(listPictures,getApplicationContext());
+        rv.setAdapter(mAdapter);
+    }
+
     private void getImageData() {
             databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -130,12 +150,33 @@ public class AccessoriesCategory_Activity extends AppCompatActivity {
                     ListPictures listPicture=new ListPictures(url);
                     listPictures.add(listPicture);
                 }
-               // RecycleAdapter adapter=new RecycleAdapter(listPictures,getApplicationContext());
-             //   rv.setAdapter(adapter);
 
                 // ron
                 mAdapter = new RecycleAdapter(listPictures,getApplicationContext());
                 rv.setAdapter(mAdapter);
+
+                mAdapter.setOnItemClickListener(new RecycleAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemLike(int position) {
+                        Log.d("pttt", "position: "+position);
+                        saveToOutFit(listPictures.get(position));
+
+                    }
+
+                    @Override
+                    public void onItemDelete(int position) {
+
+                        removeFromPage(listPictures.get(position));
+
+                        listPictures.remove(position);
+                        //mAdapter = new RecycleAdapter(listPictures,getApplicationContext());
+                        //rv.setAdapter(mAdapter);
+                    }
+
+
+                });
+
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -219,11 +260,16 @@ public class AccessoriesCategory_Activity extends AppCompatActivity {
         menu_IMG_ootd= findViewById(R.id.menu_IMG_ootd);
         menu_IMG_addPic= findViewById(R.id.menu_IMG_addPic);
         menu_IMG_homepage= findViewById(R.id.menu_IMG_homepage);
+
+
         rv=findViewById(R.id.rec);
-        picture_IMG_heart=findViewById(R.id.picture_IMG_heart);
+
+        picture_IMG_heart=findViewById(R.id.post_like);
+        post_Delete=findViewById(R.id.post_delete);
 
     }
 
+    ///Methods to like and delete
 
     public void saveToOutFit(ListPictures listPicture) {
         final String randomKey = UUID.randomUUID().toString();
@@ -231,6 +277,29 @@ public class AccessoriesCategory_Activity extends AppCompatActivity {
         myRef.setValue(listPicture.getImageUrl());
 
     }
+
+    private void removeFromPage(ListPictures listPicture) {
+       databaseReference.equalTo(listPicture.imageUrl).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String Key = snapshot.getKey();
+                databaseReference.child(Key).removeValue();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });     //how to get the picture id from the database
+
+       // DatabaseReference myRef = database.getReference(user.getUid()).child("Outfit").child(randomKey);
+       // myRef.setValue(listPicture.getImageUrl());
+
+
+
+    }
+
+
 
 
     @Override
