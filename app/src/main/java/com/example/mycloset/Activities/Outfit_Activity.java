@@ -38,6 +38,7 @@ public class Outfit_Activity extends AppCompatActivity {
     private StorageReference gsReference;
     private FirebaseDatabase database;
     private RecyclerView rv;
+
     private TextView main_LBL_titleName;
 
     private RecycleAdapter mAdapter;
