@@ -15,9 +15,9 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mycloset.ListPictures;
+import com.example.mycloset.Models.ListPictures;
 import com.example.mycloset.R;
-import com.example.mycloset.RecycleAdapter;
+import com.example.mycloset.Models.RecycleAdapter;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -39,13 +39,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import static com.example.mycloset.Models.Finals.ACCESSORIES;
 
 
 public class AccessoriesCategory_Activity extends AppCompatActivity {
     private ImageView menu_IMG_ootd;
     private ImageView menu_IMG_addPic;
     private ImageView menu_IMG_homepage;
-    //private ImageView picture_IMG_heart,post_Delete;
 
     private Uri uriImage;
     private StorageReference storageRef;
@@ -80,37 +80,25 @@ public class AccessoriesCategory_Activity extends AppCompatActivity {
         rv.addItemDecoration(decoration);
         listPictures=new ArrayList<>();
         databaseReference= database.getReference(user.getUid()).child("accessories");
-
-        //Testing Ron
-       // testGetImageData();
-
-
-
-
         getImageData();
-
-
-//        //mAdapter = new RecycleAdapter(listPictures,this);
-
-
 
         menu_IMG_homepage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
-                //openMenu();
             }
         });
         menu_IMG_ootd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
-                openOotdActivity();
+                openOutfitActivity();
             }
         });
         menu_IMG_addPic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 addPicture();
             }
         });
@@ -157,16 +145,10 @@ public class AccessoriesCategory_Activity extends AppCompatActivity {
         });
     }
 
-    private void openOotdActivity() {
+    private void openOutfitActivity() {
         Intent myIntent = new Intent(this, Outfit_Activity.class);
         startActivity(myIntent);
 
-    }
-
-    private void openMenu() {
-//        Intent myIntent = new Intent(this, com.example.mycloset.MainActivity.class);
-//        startActivity(myIntent);
-        finish();
     }
 
     private void addPicture() {
@@ -190,7 +172,6 @@ public class AccessoriesCategory_Activity extends AppCompatActivity {
 
             //You can get File object from intent
             File file = new ImagePicker().Companion.getFile(data);
-
             //You can also get File Path from intent
             String filePath = new ImagePicker().Companion.getFilePath(data);
 
@@ -240,7 +221,6 @@ public class AccessoriesCategory_Activity extends AppCompatActivity {
     }
 
     ///Methods to like and delete
-
     public void saveToOutFit(ListPictures listPicture) {
         //final String randomKey = UUID.randomUUID().toString();
         DatabaseReference myRef = database.getReference(user.getUid()).child("Outfit");//.child(randomKey);
@@ -268,12 +248,6 @@ public class AccessoriesCategory_Activity extends AppCompatActivity {
 
             }
         });
-
-
-
-
-        //myRef.push().setValue(listPicture.getImageUrl());
-
     }
 
     private void removeFromPage(ListPictures listPicture) {
@@ -289,7 +263,7 @@ public class AccessoriesCategory_Activity extends AppCompatActivity {
                     ds.getRef().removeValue();
 
                     //delete Picture from Storage
-                    storageRef.child(user.getUid()).child("accessories").child(key + ".jpg").delete();
+                    storageRef.child(user.getUid()).child(ACCESSORIES).child(key + ".jpg").delete();
                     Log.d("pttt","key"+ key+"deleted");
                 }
             }
@@ -302,7 +276,7 @@ public class AccessoriesCategory_Activity extends AppCompatActivity {
 
 
 
-        DatabaseReference myRef = database.getReference(user.getUid()).child("Outfit");//.child(randomKey);
+        DatabaseReference myRef = database.getReference(user.getUid()).child("Outfit");
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -320,38 +294,6 @@ public class AccessoriesCategory_Activity extends AppCompatActivity {
 
             }
         });
-
-
-
-
-
-
-
-//        databaseReference.orderByKey().equalTo(listPicture.getImageUrl()).addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                for (DataSnapshot ds: dataSnapshot.getChildren()){
-//                    String key = ds.getKey();
-//                    Log.d("pttt", listPicture.getImageUrl());
-//                    Log.d("pttt","key+  "+ key);
-//                }
-//               //databaseReference.child(key).removeValue();
-//
-//                //String Key = snapshot.getChildren().getKey();
-//                //databaseReference.child(Key).removeValue();
-//
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });     //how to get the picture id from the database
-
-       // DatabaseReference myRef = database.getReference(user.getUid()).child("Outfit").child(randomKey);
-       // myRef.setValue(listPicture.getImageUrl());
-
     }
 
 

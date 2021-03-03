@@ -1,20 +1,28 @@
-package com.example.mycloset;
+package com.example.mycloset.Activities;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.transition.Transition;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 
 
 import com.bumptech.glide.Glide;
-import com.example.mycloset.Activities.Outfit_Activity;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.example.mycloset.R;
 
-public class MainActivity extends AppCompatActivity {
+public class Main_Activity extends AppCompatActivity {
 
     private CardView main_LBL_tops;
     private CardView main_LBL_bottoms;
@@ -27,14 +35,9 @@ public class MainActivity extends AppCompatActivity {
     private ImageView menu_IMG_addPic;
     private ImageView menu_IMG_homepage;
     private ImageView main_IMG_homeback;
+    private ScrollView main_ScrollView;
+    private CardView main_Card_tops,main_Card_bottoms,main_Card_jackets,main_Card_shoes,main_Card_accessories,main_Card_sports;
 
-    private Activity topsCategory_Activity;
-    private Activity SportCategory_Activity;
-    private Activity BottomsCategory_Activity ;
-    private Activity AccessoriesCategory_Activity;
-    private Activity JacketsCategory_Activity;
-    private Activity ShoesCategory_Activity;
-    private Activity ootd_Activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,103 +45,104 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         findByView();
 
+
+
+        Glide.with(this).load(R.drawable.main_img_homeback).into(new CustomTarget<Drawable>() {
+           @Override
+            public void onResourceReady(@NonNull Drawable resource, @Nullable com.bumptech.glide.request.transition.Transition<? super Drawable> transition) {
+               main_ScrollView.setBackground(resource);
+            }
+
+            @Override
+            public void onLoadCleared(@Nullable Drawable placeholder) {
+            }
+
+        });
+
+
+
    Glide.with(this).load(getResources().getIdentifier("main_IMG_homeback", "drawable", this.getPackageName())).into(main_IMG_homeback);
 
         main_LBL_tops.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openTopsActivity(topsCategory_Activity);
+                openTopsActivity();
             }
         });
         main_LBL_bottoms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openBottomsActivity(BottomsCategory_Activity);
+                openBottomsActivity();
             }
         });
         main_LBL_jackets.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openJacketsActivity(JacketsCategory_Activity);
+                openJacketsActivity();
             }
         });
         main_LBL_accessories.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openAccessoriesActivity(AccessoriesCategory_Activity);
+                openAccessoriesActivity();
             }
         });
         main_LBL_sports.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openSportsActivity(SportCategory_Activity);
+                openSportsActivity();
             }
         });
         main_LBL_shoes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openShoesActivity(ShoesCategory_Activity);
+                openShoesActivity();
             }
         });
         menu_IMG_ootd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openOotdActivity(ootd_Activity);
-            }
-        });
-
-        menu_IMG_homepage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openMainActivity(MainActivity.this);
-
-
+                openOutFitActivity();
             }
         });
   }
 
 
-
-    private void openMainActivity(Activity activity) {
-        Intent myIntent = new Intent(this, MainActivity.class);
-        startActivity(myIntent);
-    }
-
-    private void openOotdActivity(Activity activity) {
+    private void openOutFitActivity() {
         Intent myIntent = new Intent(this, Outfit_Activity.class);
         startActivity(myIntent);
     }
 
-    private void openShoesActivity(Activity activity) {
+    private void openShoesActivity() {
         Intent myIntent = new Intent(this, com.example.mycloset.Activities.ShoesCategory_Activity.class);
         startActivity(myIntent);
     }
 
 
-    private void openSportsActivity(Activity activity){
+    private void openSportsActivity(){
         Intent myIntent = new Intent(this, com.example.mycloset.Activities.SportCategory_Activity.class);
         startActivity(myIntent);
     }
 
 
-    private void openJacketsActivity(Activity activity) {
+    private void openJacketsActivity() {
         Intent myIntent = new Intent(this, com.example.mycloset.Activities.JacketsCategory_Activity.class);
         startActivity(myIntent);
 
     }
-    private void openBottomsActivity(Activity activity) {
+    private void openBottomsActivity() {
         Intent myIntent = new Intent(this, com.example.mycloset.Activities.BottomsCategory_Activity.class);
         startActivity(myIntent);
     }
 
 
-    private void openAccessoriesActivity(Activity activity) {
+    private void openAccessoriesActivity() {
         Intent myIntent = new Intent(this, com.example.mycloset.Activities.AccessoriesCategory_Activity.class);
         startActivity(myIntent);
 
     }
 
-    private void openTopsActivity(Activity activity) {
+    private void openTopsActivity() {
         Intent myIntent = new Intent(this,com.example.mycloset.Activities.TopsCategory_Activity.class);
         startActivity(myIntent);
 
@@ -158,6 +162,17 @@ public class MainActivity extends AppCompatActivity {
         main_IMG_homeback= findViewById(R.id.main_IMG_Back);
         menu_IMG_homepage= findViewById(R.id.menu_IMG_homepage);
 
+
+        main_ScrollView = findViewById(R.id.main_ScrollView);
+
+
+
+       //tops=findViewById();
+       //bottoms=findViewById();
+       //jackets=findViewById();
+       //shoes=findViewById();
+       //accessories=findViewById();
+       //sports=findViewById();
     }
     @Override
     protected void onResume() {

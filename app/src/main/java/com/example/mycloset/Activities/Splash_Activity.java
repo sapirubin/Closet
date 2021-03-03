@@ -1,8 +1,7 @@
-package com.example.mycloset;
+package com.example.mycloset.Activities;
 
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.interpolator.view.animation.LinearOutSlowInInterpolator;
 
 import android.animation.Animator;
 import android.content.Intent;
@@ -10,11 +9,10 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
-import android.view.animation.BounceInterpolator;
-import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.example.mycloset.R;
 import com.google.android.material.button.MaterialButton;
 
 public class Splash_Activity extends AppCompatActivity {

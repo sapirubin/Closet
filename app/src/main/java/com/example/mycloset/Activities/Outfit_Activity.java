@@ -2,9 +2,9 @@ package com.example.mycloset.Activities;
 
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mycloset.ListPictures;
+import com.example.mycloset.Models.ListPictures;
 import com.example.mycloset.R;
-import com.example.mycloset.RecycleAdapter;
+import com.example.mycloset.Models.RecycleAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -29,8 +29,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Outfit_Activity extends AppCompatActivity {
-    private ImageView menu_IMG_ootd;
-    private ImageView menu_IMG_addPic;
     private ImageView menu_IMG_homepage;
     private Uri uriImage;
     private StorageReference storageRef;
@@ -40,6 +38,7 @@ public class Outfit_Activity extends AppCompatActivity {
     private StorageReference gsReference;
     private FirebaseDatabase database;
     private RecyclerView rv;
+    private TextView main_LBL_titleName;
 
     private RecycleAdapter mAdapter;
     private List<ListPictures> listPictures;
@@ -67,6 +66,8 @@ public class Outfit_Activity extends AppCompatActivity {
         listPictures=new ArrayList<>();
         databaseReference= database.getReference(user.getUid()).child("Outfit");
 
+        main_LBL_titleName.setText(user.getDisplayName());
+
         getImageData();
 
         menu_IMG_homepage.setOnClickListener(new View.OnClickListener() {
@@ -80,7 +81,7 @@ public class Outfit_Activity extends AppCompatActivity {
     }
 
     private void findByView(){
-
+         main_LBL_titleName=findViewById(R.id.main_LBL_titleName);
         menu_IMG_homepage= findViewById(R.id.menu_IMG_homepage);
         rv=findViewById(R.id.rec);
 
@@ -120,14 +121,6 @@ public class Outfit_Activity extends AppCompatActivity {
             }
         });
     }
-
-
-
-
-
-
-
-
 
     private void removeFromPage(ListPictures listPicture) {
         databaseReference.addValueEventListener(new ValueEventListener() {

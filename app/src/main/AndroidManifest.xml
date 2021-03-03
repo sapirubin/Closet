@@ -20,7 +20,7 @@
         android:largeHeap="true"
         >
         <activity
-            android:name=".Splash_Activity"
+            android:name=".Activities.Splash_Activity"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,9 +31,9 @@
 
         <activity android:name=".Activities.Outfit_Activity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".Login_Activity"
+        <activity android:name=".Activities.Login_Activity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".MainActivity"
+        <activity android:name=".Activities.Main_Activity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".Activities.TopsCategory_Activity"
             android:theme="@style/AppTheme.NoActionBar"></activity>

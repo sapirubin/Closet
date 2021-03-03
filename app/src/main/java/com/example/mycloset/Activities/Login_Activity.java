@@ -1,13 +1,12 @@
-package com.example.mycloset;
+package com.example.mycloset.Activities;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
+import com.example.mycloset.R;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
@@ -16,10 +15,6 @@ import com.firebase.ui.auth.IdpResponse;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import java.util.Arrays;
-
-import com.google.android.gms.common.api.ApiException;
-
-import com.google.android.gms.tasks.Task;
 
 
 public class Login_Activity extends AppCompatActivity {
@@ -70,7 +65,7 @@ public class Login_Activity extends AppCompatActivity {
 
     private void openApp() {
         Log.d("pttt", "openApp");
-        Intent myIntent = new Intent(this, MainActivity.class);
+        Intent myIntent = new Intent(this, Main_Activity.class);
         startActivity(myIntent);
         finish();
 

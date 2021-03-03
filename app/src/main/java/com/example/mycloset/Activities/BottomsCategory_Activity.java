@@ -15,9 +15,9 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mycloset.ListPictures;
+import com.example.mycloset.Models.ListPictures;
 import com.example.mycloset.R;
-import com.example.mycloset.RecycleAdapter;
+import com.example.mycloset.Models.RecycleAdapter;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -39,6 +39,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import static com.example.mycloset.Models.Finals.BOTTOMS;
+
 public class BottomsCategory_Activity extends AppCompatActivity {
     private ImageView menu_IMG_ootd;
     private ImageView menu_IMG_addPic;
@@ -53,7 +55,9 @@ public class BottomsCategory_Activity extends AppCompatActivity {
     private StorageReference gsReference;
     private FirebaseDatabase database;
     private RecyclerView rv;
-    private List<ListPictures> listPictures;
+
+    private RecycleAdapter mAdapter;
+    private List<ListPictures>listPictures;
     private DatabaseReference databaseReference;
 
     @Override
@@ -65,40 +69,43 @@ public class BottomsCategory_Activity extends AppCompatActivity {
         // Create a Cloud Storage reference from the app
         storage= FirebaseStorage.getInstance();
         user = FirebaseAuth.getInstance().getCurrentUser();
-        storageRef = FirebaseStorage.getInstance().getReference();
+        storageRef = storage.getReference();
         //// RealTime database
         database = FirebaseDatabase.getInstance();
-
         ///recycleView
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(this));
         DividerItemDecoration decoration=new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         rv.addItemDecoration(decoration);
         listPictures=new ArrayList<>();
-        databaseReference= database.getReference(user.getUid()).child("bottoms");
+        databaseReference= database.getReference(user.getUid()).child(BOTTOMS);
         getImageData();
-
 
         menu_IMG_homepage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openMenu();
+                finish();
             }
         });
         menu_IMG_ootd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openOotdActivity();
+                finish();
+                openOutfitActivity();
             }
         });
         menu_IMG_addPic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 addPicture();
             }
         });
 
+
     }
+
+
     private void getImageData() {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -109,26 +116,38 @@ public class BottomsCategory_Activity extends AppCompatActivity {
                     ListPictures listPicture=new ListPictures(url);
                     listPictures.add(listPicture);
                 }
-                RecycleAdapter adapter=new RecycleAdapter(listPictures,getApplicationContext());
-                rv.setAdapter(adapter);
-            }
 
+                // ron
+                mAdapter = new RecycleAdapter(listPictures,getApplicationContext());
+                rv.setAdapter(mAdapter);
+
+                mAdapter.setOnItemClickListener(new RecycleAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemLike(int position) {
+                        Log.d("pttt", "position: "+position);
+                        saveToOutFit(listPictures.get(position));
+
+                    }
+
+                    @Override
+                    public void onItemDelete(int position) {
+                        removeFromPage(listPictures.get(position));
+                        //listPictures.remove(position);
+                        //mAdapter = new RecycleAdapter(listPictures,getApplicationContext());
+                        //rv.setAdapter(mAdapter);
+                    }
+                });
+            }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
     }
 
-    private void openOotdActivity() {
+    private void openOutfitActivity() {
         Intent myIntent = new Intent(this, Outfit_Activity.class);
         startActivity(myIntent);
 
-    }
-
-    private void openMenu() {
-//        Intent myIntent = new Intent(this, com.example.mycloset.MainActivity.class);
-//        startActivity(myIntent);
-        finish();
     }
 
     private void addPicture() {
@@ -152,7 +171,6 @@ public class BottomsCategory_Activity extends AppCompatActivity {
 
             //You can get File object from intent
             File file = new ImagePicker().Companion.getFile(data);
-
             //You can also get File Path from intent
             String filePath = new ImagePicker().Companion.getFilePath(data);
 
@@ -164,9 +182,10 @@ public class BottomsCategory_Activity extends AppCompatActivity {
     }
 
     private void uploadImage() {
+
         if (uriImage != null) {
             final String randomKey = UUID.randomUUID().toString();
-            StorageReference AccessoriesRef = storageRef.child(user.getUid()).child("bottoms").child(randomKey + ".jpg");
+            StorageReference AccessoriesRef = storageRef.child(user.getUid()).child(BOTTOMS).child(randomKey + ".jpg");
 
             AccessoriesRef.putFile(uriImage).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -175,9 +194,9 @@ public class BottomsCategory_Activity extends AppCompatActivity {
                         @Override
                         public void onSuccess(Uri uri) {
                             myUri = uri.toString();
-                            DatabaseReference myRef= databaseReference.child(randomKey);
+                            databaseReference.child(randomKey).setValue(myUri);
                             //DatabaseReference myRef = database.getReference(user.getUid()).child("accessories").child(randomKey);
-                            myRef.setValue(myUri);
+                            //myRef.setValue();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -194,11 +213,86 @@ public class BottomsCategory_Activity extends AppCompatActivity {
         menu_IMG_ootd= findViewById(R.id.menu_IMG_ootd);
         menu_IMG_addPic= findViewById(R.id.menu_IMG_addPic);
         menu_IMG_homepage= findViewById(R.id.menu_IMG_homepage);
+
+
         rv=findViewById(R.id.rec);
 
-
-
     }
+
+    ///Methods to like and delete
+    public void saveToOutFit(ListPictures listPicture) {
+        //final String randomKey = UUID.randomUUID().toString();
+        DatabaseReference myRef = database.getReference(user.getUid()).child("Outfit");//.child(randomKey);
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                boolean isExist =false;
+                if (snapshot.exists()) {
+                    for (DataSnapshot ds : snapshot.getChildren()) {
+                        String key = ds.getKey();
+                        if (ds.getValue().equals(listPicture.getImageUrl())){
+                            //ds.getRef().removeValue();
+                            isExist=true;
+                        }
+                    }
+
+                }
+                if(isExist==false) {
+                    myRef.push().setValue(listPicture.getImageUrl());}
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void removeFromPage(ListPictures listPicture) {
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    String key = ds.getKey();
+                    if (ds.getValue().equals(listPicture.getImageUrl())){
+                        ds.getRef().removeValue();
+
+                        //delete Picture from Storage
+                        storageRef.child(user.getUid()).child(BOTTOMS).child(key + ".jpg").delete();
+                        Log.d("pttt","key"+ key+"deleted");
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+        DatabaseReference myRef = database.getReference(user.getUid()).child("Outfit");
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    for (DataSnapshot ds : snapshot.getChildren()) {
+                        String key = ds.getKey();
+                        if (ds.getValue().equals(listPicture.getImageUrl())){
+                            ds.getRef().removeValue();
+                        }
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+
     @Override
     protected void onResume() {
         Log.d("pttt", "onResume");
@@ -223,6 +317,5 @@ public class BottomsCategory_Activity extends AppCompatActivity {
         Log.d("pttt", "onDestroy");
         super.onDestroy();
     }
-
 
 }

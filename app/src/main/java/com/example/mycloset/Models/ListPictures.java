@@ -1,4 +1,4 @@
-package com.example.mycloset;
+package com.example.mycloset.Models;
 
 
 import android.content.Context;
