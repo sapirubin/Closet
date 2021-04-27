@@ -32,13 +32,6 @@ Easy to use  **Pick an image from the Gallery or Capture image using Camera**
 
 # 🎬Preview
 
-
-
-
-!
-!
-!
-
    Entrance Page    |         Upload an Image      |       Outfit Page        |
 :-------------------------:|:-------------------------:|:-------------------------:
 ![FirstPage](https://user-images.githubusercontent.com/66008710/116229852-a2344b80-a75f-11eb-8225-aa129edb36d7.gif) |  ![mainAction](https://user-images.githubusercontent.com/66008710/116229865-a496a580-a75f-11eb-99b0-dc12494e0f2a.gif)  |  ![outfit](https://user-images.githubusercontent.com/66008710/116229894-ac564a00-a75f-11eb-8c3e-cdb0e56458d7.gif)
